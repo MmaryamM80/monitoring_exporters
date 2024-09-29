@@ -1,0 +1,22 @@
+version: '3'
+
+networks:
+  monitoring:
+
+volumes:
+  snmp-data:
+
+
+services:
+
+blackbox_exporter:
+    image: quay.io/prometheus/blackbox-exporter:latest
+    container_name: blackbox_exporter
+    ports:
+      - "9115:9115"
+    volumes:
+      - ./blackbox-conf/blackbox.yml:/etc/blackbox.yml
+    restart: unless-stopped
+    networks:
+      - monitoring
+
